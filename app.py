@@ -69,5 +69,5 @@ def manufacturer_form():
     return render_template('manufacturer_form.html')
 
 if __name__ == '__main__':
-    app.secret_key = 'your_secret_key'  # Required for flash messages
+    app.secret_key = '32cb68eb67047f9b8ff872f4424a5b23'  # Required for flash messages
     app.run(host='0.0.0.0', port=8001, debug=True)
