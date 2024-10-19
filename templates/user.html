@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Animated Login Form | 2024</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   
+<div class="box">
+<form id="loginForm" onsubmit="return loginUser()">
+<h2>Login</h2>
+<div class="inputBx">
+<span></span>
+<input id="usernameInput" type="text" placeholder="Username" required>
+</div>
+<div class="inputBx">
+<span></span>
+<input id="passwordInput" type="password" placeholder="Password" required>
+</div>
+<div class="inputBx">
+<input type="submit" value="Sign in">
+</div>
+<div class="group">
+
+</div>
+</form>
+</div>
+
+<script>
+function loginUser() {
+    var username = document.getElementById("usernameInput").value;
+    var password = document.getElementById("passwordInput").value;
+
+    // Check if username and password match
+    if (username === "admin" && password === "3020") {
+        alert("Login successful!"); // You can replace this with redirecting to another page or any other action
+        window.location.href = "dashboard.html"; // Redirect to the dashboard page
+        return false; // Prevent form submission
+    } else {
+        alert("Invalid username or password");
+        return false; // Prevent form submission
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Manufacturer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='manustyle.css') }}">
+</head>
+<body>
+    <div >
+        <h1 class="title">Add Manufacturer</h1>
+        <form action="/add_manufacturer" method="post">
+            <div class="inputBx">
+                <span></span>
+                <input id="name" type="text" placeholder="Name" required name="name">
+            </div>
+            <div class="inputBx">
+                <span></span>
+                <input type="email" id="email" name="email" placeholder="E Mail" required>
+            </div>
+            <div class="inputBx">
+                <span></span>
+                <input type="text" id="phno" name="phno" placeholder="Phone Number" required >
+            </div>
+            <div class="inputBx">
+                <span></span>
+                <input type="text" id="country" name="country" placeholder="Country" required >
+            </div>
+            <div class="inputBx">
+                <span></span>
+                <input type="text" id="state" name="state" placeholder="State" required >
+            </div>
+            <div class="inputBx">
+                <span></span>
+                <input type="text" id="city" name="city" placeholder="City" required >
+            </div>
+            <div class="inputBx">
+                <span></span>
+                <input type="text" id="pname" name="pname" placeholder="Product Name" required >
+            </div>
+            <div class="inputBx">
+                <span></span>
+                <input type="text" id="cat" name="cat" placeholder="Category" required >
+            </div>
+            <div class="inputBx">
+                <input type="submit" value="Save"><br><br><br>
+            </div>
+
+            <h1><a href="/view_manufacturers" class="btn btn-secondary mt-3">View All</a></h1>
+
+        </form>
+    </div>
+</body>
+</html>

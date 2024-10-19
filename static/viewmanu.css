@@ -1,0 +1,81 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(120deg, #5fdfee 0%, #ff20de 100%); /* Gradient background */
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+input[type="text"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 300px;
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #8cf8fa; /* Add border */
+    border-radius: 5px; /* Add border radius */
+    transition: border-color 0.3s ease; /* Add transition for border color */
+}
+
+input[type="text"]:focus {
+    border-color: #8cf8fa; /* Change border color on focus */
+    box-shadow: 0 0 5px #8cf8fa; /* Add box shadow on focus */
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative; /* Add position relative */
+    z-index: 1; /* Add z-index to ensure table stays on top */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #faaaaa;
+    transition: color 0.3s, box-shadow 0.3s, transform 0.3s; /* Add transform transition */
+    position: relative; /* Add position relative */
+    z-index: 1; /* Add z-index to ensure text stays on top */
+}
+
+th {
+    background-color: #8ff2f2;
+}
+
+tbody tr {
+    transition: background-color 0.3s;
+}
+
+tbody tr:hover {
+    background-color: #f49cbe; /* Lighter background color on hover */
+    transform: perspective(1000px) rotateY(5deg); /* Add perspective and rotation */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Bigger shadow on hover */
+    position: relative; /* Add position relative */
+    z-index: 2; /* Add z-index to ensure hovered row stays on top */
+    animation: pulsate 1.5s infinite alternate; /* Pulsating animation */
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Initial shadow */
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); /* Larger shadow */
+    }
+}
+
+tbody tr:hover td {
+    color: #333; /* Change text color on hover */
+    transition: color 0.3s;
+}
