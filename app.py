@@ -54,7 +54,7 @@ def add_manufacturer():
                 logging.error(f"Failed to upload file: {response}")
                 flash(f"Failed to upload file to S3")
                 return str(response), 500
-
+ 
         except Exception as e:
             logging.error(f"An error occurred: {e}")
             flash(f"An error occurred: {e}")
