@@ -12,3 +12,9 @@ adding necessary Libraries in requirements.txt
 
 CICD
 ![CI/CD Pipeline](https://raw.githubusercontent.com/VikasSivashankaran/AWS_Beanstalk_CICD_Pipeline/main/cicdaws.jpg)
+
+
+
+Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 and other federated data sources using standard SQL.
+
+![CI/CD Pipeline](https://raw.githubusercontent.com/VikasSivashankaran/AWS_Beanstalk_CICD_Pipeline/main/Athena.jpg)
