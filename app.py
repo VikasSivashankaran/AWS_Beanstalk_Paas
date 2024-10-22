@@ -6,11 +6,14 @@ import logging
 
 app = Flask(__name__, static_url_path='/static')
 
+# Configuration for the S3 bucket and region
 S3_BUCKET = 'laptopbucket-pythonn'
 S3_REGION = 'ap-south-1'
 
+# Creating an S3 client
 s3 = boto3.client('s3', region_name=S3_REGION)
 
+# Setting up logging
 logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/')
@@ -23,6 +26,7 @@ def add_manufacturer():
         try:
             logging.debug("Received POST request to /add_manufacturer")
             
+            # Fetching form data
             name = request.form['name']
             email = request.form['email']
             phno = request.form['phno']
@@ -34,19 +38,28 @@ def add_manufacturer():
 
             logging.debug(f"Form data: {name}, {email}, {phno}, {country}, {state}, {city}, {pname}, {cat}")
             
+            # Preparing CSV data
             csv_data = [name, email, phno, country, state, city, pname, cat]
             
+            # Writing data to CSV
             csv_file = io.StringIO()
             writer = csv.writer(csv_file)
             writer.writerow(['Name', 'Email', 'Phone Number', 'Country', 'State', 'City', 'Product Name', 'Category'])
             writer.writerow(csv_data)
             csv_file.seek(0)  
 
-            logging.debug("Attempting to upload the CSV to S3")
+            logging.debug("Attempting to upload the CSV to S3 inside a folder")
 
-            response = s3.put_object(Bucket=S3_BUCKET, Key='manufacturers.csv', Body=csv_file.getvalue())
+            # Uploading the CSV file to a folder in S3 bucket
+            response = s3.put_object(
+                Bucket=S3_BUCKET, 
+                Key='manufacturers_data/manufacturers.csv',  # Add folder name before file name
+                Body=csv_file.getvalue()
+            )
+
             logging.debug(f"S3 response: {response}")
 
+            # Checking for successful upload
             if response['ResponseMetadata']['HTTPStatusCode'] == 200:
                 logging.debug("File uploaded successfully to S3")
                 return redirect(url_for('manufacturer_form'))
@@ -54,7 +67,7 @@ def add_manufacturer():
                 logging.error(f"Failed to upload file: {response}")
                 flash(f"Failed to upload file to S3")
                 return str(response), 500
- 
+
         except Exception as e:
             logging.error(f"An error occurred: {e}")
             flash(f"An error occurred: {e}")
