@@ -38,19 +38,31 @@ def add_manufacturer():
 
             logging.debug(f"Form data: {name}, {email}, {phno}, {country}, {state}, {city}, {pname}, {cat}")
             
-            # Preparing CSV data
+            # Prepare new data
             csv_data = [name, email, phno, country, state, city, pname, cat]
             
-            # Writing data to CSV
+            # Initialize CSV file content
             csv_file = io.StringIO()
             writer = csv.writer(csv_file)
-            writer.writerow(['Name', 'Email', 'Phone Number', 'Country', 'State', 'City', 'Product Name', 'Category'])
+            
+            # Attempt to download the existing file from S3
+            try:
+                existing_obj = s3.get_object(Bucket=S3_BUCKET, Key='manufacturers_data/manufacturers.csv')
+                existing_csv_content = existing_obj['Body'].read().decode('utf-8')
+                csv_file.write(existing_csv_content)
+                csv_file.seek(0, io.SEEK_END)  # Move to the end to append new row
+            except s3.exceptions.NoSuchKey:
+                # If the file doesn't exist, we will create a new one
+                logging.debug("No existing CSV found, creating a new file.")
+                writer.writerow(['Name', 'Email', 'Phone Number', 'Country', 'State', 'City', 'Product Name', 'Category'])
+
+            # Append new data
             writer.writerow(csv_data)
-            csv_file.seek(0)  
+            csv_file.seek(0)  # Reset pointer to the start of the file for upload
+            
+            logging.debug("Attempting to upload the updated CSV to S3 inside the manufacturers_data folder.")
 
-            logging.debug("Attempting to upload the CSV to S3 inside a folder")
-
-            # Uploading the CSV file to a folder in S3 bucket
+            # Upload the updated CSV file to the S3 bucket
             response = s3.put_object(
                 Bucket=S3_BUCKET, 
                 Key='manufacturers_data/manufacturers.csv',  # Add folder name before file name
@@ -59,7 +71,7 @@ def add_manufacturer():
 
             logging.debug(f"S3 response: {response}")
 
-            # Checking for successful upload
+            # Check for successful upload
             if response['ResponseMetadata']['HTTPStatusCode'] == 200:
                 logging.debug("File uploaded successfully to S3")
                 return redirect(url_for('manufacturer_form'))
